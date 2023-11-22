@@ -1,66 +1,52 @@
 import os
 
+class ForegroundColors:
+    BLACK           = '\033[30m'
+    RED             = '\033[31m'
+    GREEN           = '\033[32m'
+    ORANGE          = '\033[33m'
+    BLUE            = '\033[34m'
+    MAGENTA         = '\033[35m'
+    CYAN            = '\033[36m'
+    LIGHTGRAY       = '\033[37m'
+    DARKGRAY        = '\033[90m'
+    LIGHTRED        = '\033[91m'
+    LIGHTGREEN      = '\033[92m'
+    YELLOW          = '\033[93m'
+    LIGHTBLUE       = '\033[94m'
+    PINK            = '\033[95m'
+    LIGHTCYAN       = '\033[96m'
+    WHITE           = '\033[97m'
+
+class BackgroundColors:
+    BLACK           = '\033[40m'
+    RED             = '\033[41m'
+    GREEN           = '\033[42m'
+    ORANGE          = '\033[43m'
+    BLUE            = '\033[44m'
+    MAGENTA         = '\033[45m'
+    CYAN            = '\033[46m'
+    LIGHTGRAY       = '\033[47m'
+    DARKGRAY        = '\033[100m'
+    LIGHTRED        = '\033[101m'
+    LIGHTGREEN      = '\033[102m'
+    YELLOW          = '\033[103m'
+    LIGHTBLUE       = '\033[104m'
+    PINK            = '\033[105m'
+    LIGHTCYAN       = '\033[106m'
+    WHITE           = '\033[107m'
+
+class StyleColor:
+    RESET_ALL       = '\033[0m'
+    BOLD            = '\033[1m'
+    DISABLE         = '\033[2m'
+    UNDERLINE       = '\033[4m'
+    BLINK           = '\033[5m'
+    REVERSE         = '\033[7m'
+    HIDDEN          = '\033[8m'
+    STRIKETHROUGH   = '\033[9m'
+
 class MCLoaderPrinter:
-    class fg:
-        BLACK           = '\033[30m'
-        RED             = '\033[31m'
-        GREEN           = '\033[32m'
-        YELLOW          = '\033[33m'
-        BLUE            = '\033[34m'
-        MAGENTA         = '\033[35m'
-        CYAN            = '\033[36m'
-        LIGHTGRAY       = '\033[37m'
-        RESET           = '\033[39m'
-        DARKGRAY        = '\033[90m'
-        LIGHTRED        = '\033[91m'
-        LIGHTGREEN      = '\033[92m'
-        YELLOW          = '\033[93m'
-        LIGHTBLUE       = '\033[94m'
-        PINK            = '\033[95m'
-        LIGHTCYAN       = '\033[96m'
-    
-    class bg:
-        BLACK           = '\033[40m'
-        RED             = '\033[41m'
-        GREEN           = '\033[42m'
-        ORANGE          = '\033[43m'
-        BLUE            = '\033[44m'
-        MAGENTA         = '\033[45m'
-        CYAN            = '\033[46m'
-        LIGHTGRAY       = '\033[47m'
-        RESET           = '\033[49m'
-
-    class style:
-        RESET_ALL       = '\033[0m'
-        BOLD            = '\033[1m'
-        DISABLE         = '\033[2m'
-        UNDERLINE       = '\033[4m'
-        BLINK           = '\033[5m'
-        REVERSE         = '\033[7m'
-        HIDDEN          = '\033[8m'
-        STRIKETHROUGH   = '\033[9m'
-        NORMAL          = '\033[22m'
-
-    def show_colors(self, text_to_show="Test"):
-        """
-        Prints all the available colors, background colors, and styles.
-
-        Args:
-            text (str): The text to be printed with all the available colors, background colors, and styles.
-        """
-        for fg in self.fg.__dict__:
-            if fg[:2] != "__" and fg != "RESET":
-                infos = f"FG: {fg} - "
-                print(f"{infos}{self.fg.__dict__[fg]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
-        for bg in self.bg.__dict__:
-            if bg[:2] != "__" and bg != "RESET":
-                infos = f"BG: {bg} - "
-                print(f"{infos}{self.bg.__dict__[bg]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
-        for style in self.style.__dict__:
-            if style[:2] != "__" and style != "RESET_ALL":
-                infos = f"STYLE: {style} - "
-                print(f"{infos}{self.style.__dict__[style]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
-
     def clear_console(self):
         """
         Clears the console.
@@ -89,41 +75,40 @@ class MCLoaderPrinter:
                 color_length += 1
             if char == "m":
                 add = False
-        
         return color_length
 
     def __init__(self,
                  case_bg="",
                  case_char="*",
-                 case_color=fg.LIGHTBLUE,
-                 case_style="",
+                 case_color=ForegroundColors.BLUE,
+                 case_style=[],
                  case_empty_bg="",
-                 case_empty_color=fg.YELLOW,
-                 case_empty_style="",
+                 case_empty_color=ForegroundColors.YELLOW,
+                 case_empty_style=[],
                  case_loading_bg="",
-                 case_loading_color=fg.LIGHTBLUE,
-                 case_loading_style="",
+                 case_loading_color=ForegroundColors.LIGHTBLUE,
+                 case_loading_style=[],
                  is_case=True,
                  length=100,
                  loading_bar_bg="",
                  loading_bar_char="[]",
-                 loading_bar_color=fg.LIGHTGRAY,
+                 loading_bar_color=ForegroundColors.LIGHTGRAY,
                  loading_bar_length=80,
-                 loading_bar_style="",
+                 loading_bar_style=[],
                  loading_bg="",
                  loading_empty_bg="",
                  loading_empty_char="-",
-                 loading_empty_color=fg.LIGHTRED,
-                 loading_empty_style="",
+                 loading_empty_color=ForegroundColors.LIGHTRED,
+                 loading_empty_style=[],
                  loading_char="#",
-                 loading_color=fg.LIGHTGREEN,
-                 loading_style="",
+                 loading_color=ForegroundColors.LIGHTGREEN,
+                 loading_style=[],
                  subtitle="",
                  title="Program",
                  title_bg="",
-                 title_color=fg.YELLOW,
+                 title_color=ForegroundColors.ORANGE,
                  title_space=False,
-                 title_style=""
+                 title_style=[]
                 ):
         """
         Initialize the MCLoaderPrinter object.
@@ -165,6 +150,10 @@ class MCLoaderPrinter:
         if length < 30:
             raise ValueError("Length cannot be less than 30.")
 
+        self.fg = ForegroundColors()
+        self.bg = BackgroundColors()
+        self.style = StyleColor()
+
         self.case_char = case_char
         self.case_color = case_color
         self.case_style = case_style
@@ -196,27 +185,25 @@ class MCLoaderPrinter:
         self.loading_empty_bg = loading_empty_bg
 
         if len(loading_char) != 1:
-            raise ValueError("Loading char must be of length 1.")
+            raise ValueError("'loading_char' must be of length 1.")
         self.loading_char = loading_char
+
         if len(loading_empty_char) != 1:
-            raise ValueError("Empty char must be of length 1.")
+            raise ValueError("'loading_empty_char' must be of length 1.")
         self.loading_empty_char = loading_empty_char
+
         if len(loading_bar_char) != 2:
-            raise ValueError("Loading bar char must be of length 2.")
+            raise ValueError("'loading_bar_char' must be of length 2.")
         self.opening_loading_bar_char = loading_bar_char[0]
         self.closing_loading_bar_char = loading_bar_char[1]
 
         self.title_space = title_space
-        if len(title) - self.calculate_color_length(title) > length - 2:
-            raise ValueError(f"Title is too long for the bar. Title length: {len(title)}, Bar length: {length}")
+        
         self.title = title
         self.subtitle = subtitle
         self.title_color = title_color
         self.title_style = title_style
         self.title_bg = title_bg
-
-        if len(subtitle) - self.calculate_color_length(subtitle) > length - 2:
-            raise ValueError("Subtitle is too long for the bar.")
 
         self.subtitle = subtitle
 
@@ -236,6 +223,26 @@ class MCLoaderPrinter:
         
         self.subtitle = subtitle
 
+    def display_colors(self, text_to_show="Test"):
+        """
+        Prints all the available colors, background colors, and styles.
+
+        Args:
+            text (str): The text to be printed with all the available colors, background colors, and styles.
+        """
+        for fg in self.fg.__dict__:
+            if fg[:2] != "__" and fg != "RESET":
+                infos = f"FG: {fg} - "
+                print(f"{infos}{self.fg.__dict__[fg]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
+        for bg in self.bg.__dict__:
+            if bg[:2] != "__" and bg != "RESET":
+                infos = f"BG: {bg} - "
+                print(f"{infos}{self.bg.__dict__[bg]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
+        for style in self.style.__dict__:
+            if style[:2] != "__" and style != "RESET_ALL":
+                infos = f"STYLE: {style} - "
+                print(f"{infos}{self.style.__dict__[style]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
+
     def color_text(self, fg="", text="", bg="", style=[]):
         """
         Formats the given text with the specified foreground color, background color, and style(s).
@@ -250,7 +257,7 @@ class MCLoaderPrinter:
             str: The formatted text.
         """
         style = "".join(style)
-        return f"{fg}{bg}{style}{text}{MCLoaderPrinter.style.RESET_ALL}"
+        return f"{fg}{bg}{style}{text}{self.style.RESET_ALL}"
     
     def get_all_styles(self, text):
         """
@@ -276,7 +283,7 @@ class MCLoaderPrinter:
             if capture_str != "":
                 capture_str += char
                 if char == "m":
-                    if capture_str == MCLoaderPrinter.style.RESET_ALL:
+                    if capture_str == self.style.RESET_ALL:
                         fg, bg, style = "", "", []
                         capture_str = ""
                     else:
@@ -304,9 +311,9 @@ class MCLoaderPrinter:
         """
         color_length = self.calculate_color_length(text)
         real_length = len(text) - color_length
-
-        max_length = self.length - (0 if self.is_case else 2)
-        if real_length < max_length:
+        
+        max_length = self.length - (2 if self.is_case else 0)
+        if real_length <= max_length:
             return [text]
         
         min_length = int(self.length * 0.1)
@@ -341,7 +348,7 @@ class MCLoaderPrinter:
             # Get the styles of the text to add
             (fg, bg, style) = self.get_all_styles(text_to_add)
             if fg != "" or bg != "" or style != []:
-                text_to_add += MCLoaderPrinter.style.RESET_ALL
+                text_to_add += self.style.RESET_ALL
             splited_text.append(text_to_add)
             text = text[last_space_index + offset:]
 
@@ -482,7 +489,6 @@ class MCLoaderPrinter:
             None
         """
         if clear:
-            print("clearing console...")
             self.clear_console()
         
         if "subtitle" in format:
