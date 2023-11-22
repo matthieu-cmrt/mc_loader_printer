@@ -41,25 +41,34 @@ class MCLoaderPrinter:
         STRIKETHROUGH   = '\033[9m'
         NORMAL          = '\033[22m'
 
-    def show_colors(text="Test"):
+    def show_colors(self, text_to_show="Test"):
         """
         Prints all the available colors, background colors, and styles.
 
         Args:
             text (str): The text to be printed with all the available colors, background colors, and styles.
         """
-        for fg in MCLoaderPrinter.fg.__dict__:
+        for fg in self.fg.__dict__:
             if fg[:2] != "__" and fg != "RESET":
-                infos = f"FG: {fg} -"
-                print(f"{infos}{MCLoaderPrinter.fg.__dict__[fg]}{text}{MCLoaderPrinter.style.RESET_ALL}")
-        for bg in MCLoaderPrinter.bg.__dict__:
+                infos = f"FG: {fg} - "
+                print(f"{infos}{self.fg.__dict__[fg]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
+        for bg in self.bg.__dict__:
             if bg[:2] != "__" and bg != "RESET":
-                infos = f"BG: {bg} -"
-                print(f"{infos}{MCLoaderPrinter.bg.__dict__[bg]}{text}{MCLoaderPrinter.style.RESET_ALL}")
-        for style in MCLoaderPrinter.style.__dict__:
+                infos = f"BG: {bg} - "
+                print(f"{infos}{self.bg.__dict__[bg]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
+        for style in self.style.__dict__:
             if style[:2] != "__" and style != "RESET_ALL":
-                infos = f"STYLE: {style} -"
-                print(f"{infos}{MCLoaderPrinter.style.__dict__[style]}{text}{MCLoaderPrinter.style.RESET_ALL}")
+                infos = f"STYLE: {style} - "
+                print(f"{infos}{self.style.__dict__[style]}"+ str(text_to_show) + f"{self.style.RESET_ALL}")
+
+    def clear_console(self):
+        """
+        Clears the console.
+        """
+        if os.name == "nt":
+            os.system("cls")
+        else:
+            os.system("clear")
 
     def calculate_color_length(self, text):
         """
@@ -83,53 +92,74 @@ class MCLoaderPrinter:
         
         return color_length
 
-    def __init__(self, length=100, is_case=True, case_char="*",
-                 case_color=fg.LIGHTBLUE, case_style="", case_bg="",
-                 loading_bar_length=80, case_loading_color=fg.LIGHTBLUE,
-                 case_loading_style="", case_loading_bg="", 
-                 case_empty_color=fg.YELLOW, case_empty_style="",
-                 case_empty_bg="", loading_char="#", empty_char="-",
-                 loading_bar_char="[]", loading_color=fg.LIGHTGREEN,
-                 loading_style="", loading_bg="", empty_color=fg.LIGHTRED,
-                 empty_style="", empty_bg="", loading_bar_color=fg.LIGHTGRAY,
-                 loading_bar_style="", loading_bar_bg="", title_color=fg.YELLOW,
-                 title_style="", title_bg="", title_space=False, title="Program",
-                 subtitle=""):
+    def __init__(self,
+                 case_bg="",
+                 case_char="*",
+                 case_color=fg.LIGHTBLUE,
+                 case_style="",
+                 case_empty_bg="",
+                 case_empty_color=fg.YELLOW,
+                 case_empty_style="",
+                 case_loading_bg="",
+                 case_loading_color=fg.LIGHTBLUE,
+                 case_loading_style="",
+                 is_case=True,
+                 length=100,
+                 loading_bar_bg="",
+                 loading_bar_char="[]",
+                 loading_bar_color=fg.LIGHTGRAY,
+                 loading_bar_length=80,
+                 loading_bar_style="",
+                 loading_bg="",
+                 loading_empty_bg="",
+                 loading_empty_char="-",
+                 loading_empty_color=fg.LIGHTRED,
+                 loading_empty_style="",
+                 loading_char="#",
+                 loading_color=fg.LIGHTGREEN,
+                 loading_style="",
+                 subtitle="",
+                 title="Program",
+                 title_bg="",
+                 title_color=fg.YELLOW,
+                 title_space=False,
+                 title_style=""
+                ):
         """
-        Initializes an instance of the MCLoaderPrinter class.
+        Initialize the MCLoaderPrinter object.
 
         Parameters:
-        - length (int): The length of the loading bar.
-        - is_case (bool): Determines whether to display the case characters.
-        - case_char (str): The character used for the case.
-        - case_color (str): The color of the case characters.
-        - case_style (str): The style of the case characters.
-        - case_bg (str): The background color of the case characters.
-        - loading_bar_length (int): The length of the loading bar within the case.
-        - case_loading_color (str): The color of the loading bar within the case.
-        - case_loading_style (str): The style of the loading bar within the case.
-        - case_loading_bg (str): The background color of the loading bar within the case.
-        - case_empty_color (str): The color of the empty space within the case.
-        - case_empty_style (str): The style of the empty space within the case.
-        - case_empty_bg (str): The background color of the empty space within the case.
-        - loading_char (str): The character used for the loading animation.
-        - empty_char (str): The character used for the empty space.
-        - loading_bar_char (str): The characters used for the opening and closing of the loading bar.
-        - loading_color (str): The color of the loading animation.
-        - loading_style (str): The style of the loading animation.
-        - loading_bg (str): The background color of the loading animation.
-        - empty_color (str): The color of the empty space.
-        - empty_style (str): The style of the empty space.
-        - empty_bg (str): The background color of the empty space.
-        - loading_bar_color (str): The color of the loading bar.
-        - loading_bar_style (str): The style of the loading bar.
-        - loading_bar_bg (str): The background color of the loading bar.
-        - title_color (str): The color of the title.
-        - title_style (str): The style of the title.
-        - title_bg (str): The background color of the title.
-        - title_space (bool): Determines whether to add space between the title and the loading bar.
-        - title (str): The title of the loading bar.
-        - subtitle (str): The subtitle of the loading bar.
+        - case_bg (str): Background color for the case.
+        - case_char (str): Character used for the case.
+        - case_color (str): Color for the case.
+        - case_style (str): Style for the case.
+        - case_empty_bg (str): Background color for the empty case.
+        - case_empty_color (str): Color for the empty case.
+        - case_empty_style (str): Style for the empty case.
+        - case_loading_bg (str): Background color for the loading case.
+        - case_loading_color (str): Color for the loading case.
+        - case_loading_style (str): Style for the loading case.
+        - is_case (bool): Flag indicating whether to display the case.
+        - length (int): Length of the loading bar.
+        - loading_bar_bg (str): Background color for the loading bar.
+        - loading_bar_char (str): Characters used for the loading bar.
+        - loading_bar_color (str): Color for the loading bar.
+        - loading_bar_length (int): Length of the loading bar.
+        - loading_bar_style (str): Style for the loading bar.
+        - loading_bg (str): Background color for the loading animation.
+        - loading_empty_bg (str): Background color for the empty loading animation.
+        - loading_empty_char (str): Character used for the empty loading animation.
+        - loading_empty_color (str): Color for the empty loading animation.
+        - loading_empty_style (str): Style for the empty loading animation.
+        - loading_char (str): Character used for the loading animation.
+        - loading_color (str): Color for the loading animation.
+        - loading_style (str): Style for the loading animation.
+        - subtitle (str): Subtitle for the loading bar.
+        - title (str): Title for the loading bar.
+        - title_bg (str): Background color for the title.
+        - title_color (str): Color for the title.
+        - title_space (bool): Flag indicating whether to add space between the title and the loading bar.
+        - title_style (str): Style for the title.
         """
         self.length = length
         if length < 30:
@@ -161,16 +191,16 @@ class MCLoaderPrinter:
         self.loading_style = loading_style
         self.loading_bg = loading_bg
 
-        self.empty_color = empty_color
-        self.empty_style = empty_style
-        self.empty_bg = empty_bg
+        self.loading_empty_color = loading_empty_color
+        self.loading_empty_style = loading_empty_style
+        self.loading_empty_bg = loading_empty_bg
 
         if len(loading_char) != 1:
             raise ValueError("Loading char must be of length 1.")
         self.loading_char = loading_char
-        if len(empty_char) != 1:
+        if len(loading_empty_char) != 1:
             raise ValueError("Empty char must be of length 1.")
-        self.empty_char = empty_char
+        self.loading_empty_char = loading_empty_char
         if len(loading_bar_char) != 2:
             raise ValueError("Loading bar char must be of length 2.")
         self.opening_loading_bar_char = loading_bar_char[0]
@@ -206,7 +236,7 @@ class MCLoaderPrinter:
         
         self.subtitle = subtitle
 
-    def color_text(self, fg="", text="", bg="", style=""):
+    def color_text(self, fg="", text="", bg="", style=[]):
         """
         Formats the given text with the specified foreground color, background color, and style.
 
@@ -219,6 +249,7 @@ class MCLoaderPrinter:
         Returns:
             str: The formatted text.
         """
+        style = "".join(style)
         return f"{fg}{bg}{style}{text}{MCLoaderPrinter.style.RESET_ALL}"
     
     def get_all_styles(self, text):
@@ -233,7 +264,7 @@ class MCLoaderPrinter:
         Returns:
             tuple: A tuple containing the foreground color, background color, and style.
         """
-        fg, bg, style = "", "", ""
+        fg, bg, style = "", "", []
         # From the start, add the styles to the string (fg, bg, style), if we found a reset all we set the string to ""
         capture_str = ""
         for char in text:
@@ -246,15 +277,15 @@ class MCLoaderPrinter:
                 capture_str += char
                 if char == "m":
                     if capture_str == MCLoaderPrinter.style.RESET_ALL:
-                        fg, bg, style = "", "", ""
+                        fg, bg, style = "", "", []
                         capture_str = ""
                     else:
-                        if capture_str[2] == "3":
+                        if (capture_str[2] == "3" or capture_str[2] == "9") and capture_str[3] != "m":
                             fg = capture_str
-                        elif capture_str[2] == "4":
+                        elif capture_str[2] == "4" and capture_str[3] != "m":
                             bg = capture_str
-                        elif capture_str[2] == "1" or capture_str[2] == "2":
-                            style = capture_str
+                        else:
+                            style.append(capture_str)
                         capture_str = ""
         return (fg, bg, style)
 
@@ -279,11 +310,13 @@ class MCLoaderPrinter:
             return [text]
         
         min_length = int(self.length * 0.1)
-        (fg, bg, style) = ("", "", "")
+        (fg, bg, style) = ("", "", [])
         splited_text = []
         while True:
-            if fg != "" or bg != "" or style != "":
+            if fg != "" or bg != "" or style != []:
+                style = "".join(style)
                 text = f"{fg}{bg}{style}{text}"
+                style = []
             if len(text) < max_length:
                 splited_text.append(text)
                 break
@@ -307,7 +340,7 @@ class MCLoaderPrinter:
             
             # Get the styles of the text to add
             (fg, bg, style) = self.get_all_styles(text_to_add)
-            if fg != "" or bg != "" or style != "":
+            if fg != "" or bg != "" or style != []:
                 text_to_add += MCLoaderPrinter.style.RESET_ALL
             splited_text.append(text_to_add)
             text = text[last_space_index + offset:]
@@ -378,11 +411,11 @@ class MCLoaderPrinter:
         full_bar=""
         if is_footer:
             filled_bar = self.color_text(self.case_loading_color, self.loading_char * filled_length, self.case_loading_bg, self.case_loading_style)
-            empty_bar = self.color_text(self.case_empty_color, self.empty_char * empty_length, self.case_empty_bg, self.case_empty_style)
+            empty_bar = self.color_text(self.case_empty_color, self.loading_empty_char * empty_length, self.case_empty_bg, self.case_empty_style)
             full_bar = f"{filled_bar}{empty_bar}"
         else:
             filled_bar = self.color_text(self.loading_color, self.loading_char * filled_length, self.loading_bg, self.loading_style)
-            empty_bar = self.color_text(self.empty_color, self.empty_char * empty_length, self.empty_bg, self.empty_style)
+            empty_bar = self.color_text(self.loading_empty_color, self.loading_empty_char * empty_length, self.loading_empty_bg, self.loading_empty_style)
             open_bar = self.color_text(self.loading_bar_color, self.opening_loading_bar_char, self.loading_bar_bg, self.loading_bar_style)
             close_bar = self.color_text(self.loading_bar_color, self.closing_loading_bar_char, self.loading_bar_bg, self.loading_bar_style)
             full_bar = f"{open_bar}{filled_bar}{empty_bar}{close_bar}"
@@ -449,10 +482,8 @@ class MCLoaderPrinter:
             None
         """
         if clear:
-            if os.name == "nt":
-                os.system("cls")
-            else:
-                os.system("clear")
+            print("clearing console...")
+            self.clear_console()
         
         if "subtitle" in format:
             if not isinstance(format["subtitle"], str):
