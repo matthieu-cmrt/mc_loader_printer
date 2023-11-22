@@ -254,6 +254,18 @@ def test_huge_format_50_length_multiple_style():
     format = get_huge_format_print_multiple_style(LP)
     LP.print_format(format)
 
+def test_huge_text_as_title():
+    is_case = True
+    title_space = True
+    huge_title = "This title is purposely very long to test the title length so that it can be cut if it is too long."
+    LP = setup(
+        title=huge_title,
+        is_case=is_case, 
+        title_space=title_space
+    )
+    format = get_huge_format_print(LP)
+    LP.print_format(format)
+
 def test_easy_format_no_case():
     LP = setup(
         title="Test easy format no case",
@@ -297,7 +309,7 @@ def show_colors():
         title_space=True
     )
     LP.clear_console()
-    LP.show_colors(text_to_show="Hello World!")
+    LP.display_colors(text_to_show="Hello World!")
 
 import time
 if __name__ == "__main__":
@@ -309,12 +321,14 @@ if __name__ == "__main__":
         test_huge_format_50_length,
         test_huge_format_multiple_style,
         test_huge_format_50_length_multiple_style,
+        test_huge_text_as_title,
         test_easy_format_no_case,
         test_easy_format,
         test_no_footer,
         test_huge_no_footer,
         show_colors
     ]
-    for test in test_call:
-        test()
-        time.sleep(.1)
+    # for test in test_call:
+    #     test()
+    #     time.sleep(1)
+    test_huge_text_as_title()
