@@ -238,13 +238,13 @@ class MCLoaderPrinter:
 
     def color_text(self, fg="", text="", bg="", style=[]):
         """
-        Formats the given text with the specified foreground color, background color, and style.
+        Formats the given text with the specified foreground color, background color, and style(s).
 
         Args:
             fg (str): The foreground color.
             text (str): The text to be formatted.
             bg (str, optional): The background color. Defaults to "".
-            style (str, optional): The style. Defaults to "".
+            style (list, optional): The style. Defaults to [].
 
         Returns:
             str: The formatted text.
@@ -254,7 +254,7 @@ class MCLoaderPrinter:
     
     def get_all_styles(self, text):
         """
-        Extracts the foreground color, background color, and style from the given text.
+        Extracts the foreground color, background color, and style(s) from the given text.
         If the text contains a reset, it will reset the string to "".
         So if the text contains multiple resets or multiple colors, it will only return the last ones.
 
