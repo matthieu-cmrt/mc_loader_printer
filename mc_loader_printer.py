@@ -103,6 +103,7 @@ class MCLoaderPrinter:
                  loading_char="#",
                  loading_color=ForegroundColors.LIGHTGREEN,
                  loading_style=[],
+                 margin=0,
                  subtitle="",
                  title="Program",
                  title_bg="",
@@ -139,6 +140,7 @@ class MCLoaderPrinter:
         - loading_char (str): Character used for the loading animation.
         - loading_color (str): Color for the loading animation.
         - loading_style (str): Style for the loading animation.
+        - margin (int): Margin the terminal and the case.
         - subtitle (str): Subtitle for the loading bar.
         - title (str): Title for the loading bar.
         - title_bg (str): Background color for the title.
@@ -196,6 +198,8 @@ class MCLoaderPrinter:
             raise ValueError("'loading_bar_char' must be of length 2.")
         self.opening_loading_bar_char = loading_bar_char[0]
         self.closing_loading_bar_char = loading_bar_char[1]
+
+        self.margin = margin
 
         self.title_space = title_space
         
@@ -362,17 +366,18 @@ class MCLoaderPrinter:
             text (str): The text to be printed.
             full_case (bool, optional): Whether to print the line with full casing. Defaults to False.
         """
+        margin_spaces = " " * self.margin
         if full_case:
-            print(self.color_text(self.case_color, self.case_char * self.length, self.case_bg, self.case_style))
+            print(margin_spaces + self.color_text(self.case_color, self.case_char * self.length, self.case_bg, self.case_style))
         else:
             splited_text = self.split_if_too_long(text)
             for text in splited_text:
                 text_color_length = self.calculate_color_length(text)
                 if self.is_case:
                     colored_case = self.color_text(self.case_color, self.case_char, self.case_bg, self.case_style)
-                    print(f"{colored_case}{text.center(self.length - 2 + text_color_length, ' ')}{colored_case}")
+                    print(f"{margin_spaces}{colored_case}{text.center(self.length - 2 + text_color_length, ' ')}{colored_case}")
                 else:
-                    print(text.center(self.length + text_color_length, ' '))
+                    print(margin_spaces + text.center(self.length + text_color_length, ' '))
 
     def print_lines(self, lines=[]):
         """
@@ -437,6 +442,8 @@ class MCLoaderPrinter:
 
         This method prints the title and subtitle using the specified formatting options. It first prints an empty line with full case formatting, then checks if there should be a space before the title. If so, it prints an empty line. Next, it prints the title using the specified color, background color, and style. If a subtitle is provided, it is printed as well. After that, if there should be a space after the title, it prints an empty line. Finally, it prints an empty line with full case formatting and an additional empty line.
         """
+        if self.margin > 0:
+            print("\n" * self.margin, end="")
         self.print_line("", full_case=True)
         if self.title_space:
             self.print_line("")
@@ -472,7 +479,6 @@ class MCLoaderPrinter:
             raise ValueError("Current load cannot be greater than the end load.")
         self.print_loader(load_current, load_end, is_footer=True)
         self.print_line("", full_case=True)
-        print("\n" * 5)
 
     def print_format(self, format={}, clear=True):
         """
@@ -529,5 +535,6 @@ class MCLoaderPrinter:
         elif self.is_case and "body" in format and len(format["body"]) > 0:
             space_before = format["footer_space"] if "footer_space" in format else False
             self.print_footer(space_before=space_before)
-        else:
-            print("\n" * 5)
+        
+        if self.margin > 0:
+            print("\n" * self.margin, end="")
