@@ -109,7 +109,7 @@ class MCLoaderPrinter:
                  title_bg="",
                  title_color=ForegroundColors.ORANGE,
                  title_space=False,
-                 title_style=[]
+                 title_style=[StyleColor.BOLD, StyleColor.UNDERLINE]
                 ):
         """
         Initialize the MCLoaderPrinter object.
