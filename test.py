@@ -1,4 +1,4 @@
-from mc_loader_printer import MCLoaderPrinter
+from mc_pretty_loader import MCPrettyLoader
 import os
 
 # clear()
@@ -8,7 +8,7 @@ else:
     os.system("clear")
 
 def setup(is_case=False, has_subtitle=False, size=100, loading_bar_length=80, title_space=False, title="Test"):
-    LP = MCLoaderPrinter(
+    LP = MCPrettyLoader(
         title=title,
         title_space=title_space,
         case_char="#",
