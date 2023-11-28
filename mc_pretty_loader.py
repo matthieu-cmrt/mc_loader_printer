@@ -46,7 +46,7 @@ class StyleColor:
     HIDDEN          = '\033[8m'
     STRIKETHROUGH   = '\033[9m'
 
-class MCLoaderPrinter:
+class MCPrettyLoader:
     def clear_console(self):
         """
         Clears the console.
