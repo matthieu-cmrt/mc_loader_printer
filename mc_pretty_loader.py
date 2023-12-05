@@ -1,52 +1,52 @@
 import os
 
-class ForegroundColors:
-    BLACK           = '\033[30m'
-    RED             = '\033[31m'
-    GREEN           = '\033[32m'
-    ORANGE          = '\033[33m'
-    BLUE            = '\033[34m'
-    MAGENTA         = '\033[35m'
-    CYAN            = '\033[36m'
-    LIGHTGRAY       = '\033[37m'
-    DARKGRAY        = '\033[90m'
-    LIGHTRED        = '\033[91m'
-    LIGHTGREEN      = '\033[92m'
-    YELLOW          = '\033[93m'
-    LIGHTBLUE       = '\033[94m'
-    PINK            = '\033[95m'
-    LIGHTCYAN       = '\033[96m'
-    WHITE           = '\033[97m'
-
-class BackgroundColors:
-    BLACK           = '\033[40m'
-    RED             = '\033[41m'
-    GREEN           = '\033[42m'
-    ORANGE          = '\033[43m'
-    BLUE            = '\033[44m'
-    MAGENTA         = '\033[45m'
-    CYAN            = '\033[46m'
-    LIGHTGRAY       = '\033[47m'
-    DARKGRAY        = '\033[100m'
-    LIGHTRED        = '\033[101m'
-    LIGHTGREEN      = '\033[102m'
-    YELLOW          = '\033[103m'
-    LIGHTBLUE       = '\033[104m'
-    PINK            = '\033[105m'
-    LIGHTCYAN       = '\033[106m'
-    WHITE           = '\033[107m'
-
-class StyleColor:
-    RESET_ALL       = '\033[0m'
-    BOLD            = '\033[1m'
-    DISABLE         = '\033[2m'
-    UNDERLINE       = '\033[4m'
-    BLINK           = '\033[5m'
-    REVERSE         = '\033[7m'
-    HIDDEN          = '\033[8m'
-    STRIKETHROUGH   = '\033[9m'
-
 class MCPrettyLoader:
+    class fg:
+        BLACK           = '\033[30m'
+        RED             = '\033[31m'
+        GREEN           = '\033[32m'
+        ORANGE          = '\033[33m'
+        BLUE            = '\033[34m'
+        MAGENTA         = '\033[35m'
+        CYAN            = '\033[36m'
+        LIGHTGRAY       = '\033[37m'
+        DARKGRAY        = '\033[90m'
+        LIGHTRED        = '\033[91m'
+        LIGHTGREEN      = '\033[92m'
+        YELLOW          = '\033[93m'
+        LIGHTBLUE       = '\033[94m'
+        PINK            = '\033[95m'
+        LIGHTCYAN       = '\033[96m'
+        WHITE           = '\033[97m'
+
+    class bg:
+        BLACK           = '\033[40m'
+        RED             = '\033[41m'
+        GREEN           = '\033[42m'
+        ORANGE          = '\033[43m'
+        BLUE            = '\033[44m'
+        MAGENTA         = '\033[45m'
+        CYAN            = '\033[46m'
+        LIGHTGRAY       = '\033[47m'
+        DARKGRAY        = '\033[100m'
+        LIGHTRED        = '\033[101m'
+        LIGHTGREEN      = '\033[102m'
+        YELLOW          = '\033[103m'
+        LIGHTBLUE       = '\033[104m'
+        PINK            = '\033[105m'
+        LIGHTCYAN       = '\033[106m'
+        WHITE           = '\033[107m'
+
+    class style:
+        RESET_ALL       = '\033[0m'
+        BOLD            = '\033[1m'
+        DISABLE         = '\033[2m'
+        UNDERLINE       = '\033[4m'
+        BLINK           = '\033[5m'
+        REVERSE         = '\033[7m'
+        HIDDEN          = '\033[8m'
+        STRIKETHROUGH   = '\033[9m'
+
     def clear_console(self):
         """
         Clears the console.
@@ -77,86 +77,130 @@ class MCPrettyLoader:
                 add = False
         return color_length
 
-    def __init__(self,
-                 case_bg="",
-                 case_char="*",
-                 case_color=ForegroundColors.BLUE,
-                 case_style=[],
-                 case_empty_bg="",
-                 case_empty_color=ForegroundColors.YELLOW,
-                 case_empty_style=[],
-                 case_loading_bg="",
-                 case_loading_color=ForegroundColors.LIGHTBLUE,
-                 case_loading_style=[],
-                 is_case=True,
-                 length=100,
-                 loading_bar_bg="",
-                 loading_bar_char="[]",
-                 loading_bar_color=ForegroundColors.LIGHTGRAY,
-                 loading_bar_length=80,
-                 loading_bar_style=[],
-                 loading_bg="",
-                 loading_empty_bg="",
-                 loading_empty_char="-",
-                 loading_empty_color=ForegroundColors.LIGHTRED,
-                 loading_empty_style=[],
-                 loading_char="#",
-                 loading_color=ForegroundColors.LIGHTGREEN,
-                 loading_style=[],
-                 margin=0,
-                 subtitle="",
-                 title="Program",
-                 title_bg="",
-                 title_color=ForegroundColors.ORANGE,
-                 title_space=False,
-                 title_style=[StyleColor.BOLD, StyleColor.UNDERLINE]
-                ):
-        """
-        Initialize the MCLoaderPrinter object.
+    """
+        left_side_bar_loader = {
+            color
+            load_char
+            load_color
+            empty_char
+            empty_color
+            thickness
+        }
+        same for right_side_bar_loader
 
-        Parameters:
-        - case_bg (str): Background color for the case.
-        - case_char (str): Character used for the case.
-        - case_color (str): Color for the case.
-        - case_style (str): Style for the case.
-        - case_empty_bg (str): Background color for the empty case.
-        - case_empty_color (str): Color for the empty case.
-        - case_empty_style (str): Style for the empty case.
-        - case_loading_bg (str): Background color for the loading case.
-        - case_loading_color (str): Color for the loading case.
-        - case_loading_style (str): Style for the loading case.
-        - is_case (bool): Flag indicating whether to display the case.
-        - length (int): Length of the loading bar.
-        - loading_bar_bg (str): Background color for the loading bar.
-        - loading_bar_char (str): Characters used for the loading bar.
-        - loading_bar_color (str): Color for the loading bar.
-        - loading_bar_length (int): Length of the loading bar.
-        - loading_bar_style (str): Style for the loading bar.
-        - loading_bg (str): Background color for the loading animation.
-        - loading_empty_bg (str): Background color for the empty loading animation.
-        - loading_empty_char (str): Character used for the empty loading animation.
-        - loading_empty_color (str): Color for the empty loading animation.
-        - loading_empty_style (str): Style for the empty loading animation.
-        - loading_char (str): Character used for the loading animation.
-        - loading_color (str): Color for the loading animation.
-        - loading_style (str): Style for the loading animation.
-        - margin (int): Margin the terminal and the case.
-        - subtitle (str): Subtitle for the loading bar.
-        - title (str): Title for the loading bar.
-        - title_bg (str): Background color for the title.
-        - title_color (str): Color for the title.
-        - title_space (bool): Flag indicating whether to add space between the title and the loading bar.
-        - title_style (str): Style for the title.
-        """
-        self.length = length
+        add thickness to the bar loader and also to the footer loader
+        raise error if thickness is too big (max 5) or too small (min 1)
+        raise error if the bar loader is too big (max depends on the length of the bar) or too small (min 1)
+    """
+    def __init__(
+                self,
+                body_padding=0,
+                case_bg="",
+                case_char="*",
+                case_color=fg.LIGHTBLUE,
+                case_style=[],
+                case_empty_bg="",
+                case_empty_color=fg.YELLOW,
+                case_empty_style=[],
+                case_loading_bg="",
+                case_loading_color=fg.LIGHTBLUE,
+                case_loading_style=[],
+                footer_loading_bg="",
+                footer_loading_char="#",
+                footer_loading_color=fg.BLUE,
+                footer_loading_style=[],
+                footer_loading_empty_bg="",
+                footer_loading_empty_char="-",
+                footer_loading_empty_color=fg.YELLOW,
+                footer_loading_empty_style=[],
+                footer_loading_reverse=False,
+                footer_loading_thickness=1,
+                is_case=True,
+                left_side_bar_loader_bg="",
+                left_side_bar_loader_char="V",
+                left_side_bar_loader_color=fg.GREEN,
+                left_side_bar_loader_style=[],
+                left_side_bar_loader_empty_bg="",
+                left_side_bar_loader_empty_char="v",
+                left_side_bar_loader_empty_color=fg.RED,
+                left_side_bar_loader_empty_style=[],    
+                left_side_bar_loader_is_case=True,
+                left_side_bar_loader_on_title=False,
+                left_side_bar_loader_on_footer=False,
+                left_side_bar_loader_reverse=False,
+                left_side_bar_loader_thickness=1,
+                length=100,
+                loading_bar_bg="",
+                loading_bar_char="[]",
+                loading_bar_color=fg.LIGHTGRAY,
+                loading_bar_length=0,
+                loading_bar_style=[],
+                loading_bg="",
+                loading_empty_bg="",
+                loading_empty_char="-",
+                loading_empty_color=fg.LIGHTRED,
+                loading_empty_style=[],
+                loading_char="#",
+                loading_color=fg.LIGHTGREEN,
+                loading_reverse=False,
+                loading_style=[],
+                loading_thickness=1,
+                margin=0,
+                right_side_bar_loader_bg="",
+                right_side_bar_loader_char="V",
+                right_side_bar_loader_color=fg.GREEN,
+                right_side_bar_loader_style=[],
+                right_side_bar_loader_empty_bg="",
+                right_side_bar_loader_empty_char="v",
+                right_side_bar_loader_empty_color=fg.RED,
+                right_side_bar_loader_empty_style=[],
+                right_side_bar_loader_is_case=True,
+                right_side_bar_loader_on_title=False,
+                right_side_bar_loader_on_footer=False,
+                right_side_bar_loader_reverse=False,
+                right_side_bar_loader_thickness=1,
+                subtitle="",
+                title="Program",
+                title_bg="",
+                title_color=fg.ORANGE,
+                title_space=False,
+                title_style=[style.BOLD, style.UNDERLINE]
+                ):
+
+        # ========= Error handling =========
+
+        def verifyBtw(value, min, max, name):
+            if value < min or value > max:
+                raise ValueError(f"{name} must be between {min} and {max} (included).")
+            return value
+
+        def verifyThickness(thickness):
+            if thickness < 1 or thickness > 5:
+                raise ValueError("Thickness must be between 1 and 5.")
+            return thickness
+    
+        def verifyStr(string, supposed_len, name):
+            if len(string) != supposed_len:
+                raise ValueError(f"'{name}' must be of length {supposed_len}.")
+            return string
+
+        # ========= Length =========
+
         if length < 30:
             raise ValueError("Length cannot be less than 30.")
+        self.length = length
 
-        self.fg = ForegroundColors()
-        self.bg = BackgroundColors()
-        self.style = StyleColor()
+        # ========= Margin =========
 
-        self.case_char = case_char
+        self.margin = verifyBtw(margin, 0, 5, "Margin")
+
+        # ========= Body =========
+        
+        self.body_padding = verifyBtw(body_padding, 0, 5, "Body padding")
+
+        # ========= Case =========
+
+        self.case_char = verifyStr(case_char, 1, "case_char")
         self.case_color = case_color
         self.case_style = case_style
         self.case_bg = case_bg
@@ -170,9 +214,73 @@ class MCPrettyLoader:
         self.case_empty_style = case_empty_style
         self.case_empty_bg = case_empty_bg
 
-        if loading_bar_length > length - 4:
-            raise ValueError("Loading bar length cannot be greater than the length of the bar.")
-        self.loading_bar_length = loading_bar_length
+        # ========= Footer loader =========
+
+        self.footer_loading_color = footer_loading_color
+        self.footer_loading_style = footer_loading_style
+        self.footer_loading_bg = footer_loading_bg
+
+        self.footer_loading_empty_color = footer_loading_empty_color
+        self.footer_loading_empty_style = footer_loading_empty_style
+        self.footer_loading_empty_bg = footer_loading_empty_bg
+
+        self.footer_loading_char = verifyStr(footer_loading_char, 1, "footer_loading_char")
+        self.footer_loading_empty_char = verifyStr(footer_loading_empty_char, 1, "footer_loading_empty_char")
+
+        self.footer_loading_thickness = verifyThickness(footer_loading_thickness)
+
+        self.footer_loading_reverse = footer_loading_reverse
+
+        # ========= Left side bar loader =========
+
+        self.left_side_bar_loader_is_case = left_side_bar_loader_is_case
+
+        self.left_side_bar_loader_color = left_side_bar_loader_color
+        self.left_side_bar_loader_style = left_side_bar_loader_style
+        self.left_side_bar_loader_bg = left_side_bar_loader_bg
+
+        self.left_side_bar_loader_empty_color = left_side_bar_loader_empty_color
+        self.left_side_bar_loader_empty_style = left_side_bar_loader_empty_style
+        self.left_side_bar_loader_empty_bg = left_side_bar_loader_empty_bg
+
+        self.left_side_bar_loader_char = verifyStr(left_side_bar_loader_char, 1, "left_side_bar_loader_char")
+        self.left_side_bar_loader_empty_char = verifyStr(left_side_bar_loader_empty_char, 1, "left_side_bar_loader_empty_char")
+
+        self.left_side_bar_loader_thickness = verifyThickness(left_side_bar_loader_thickness)
+
+        self.left_side_bar_loader_on_title = left_side_bar_loader_on_title
+        self.left_side_bar_loader_on_footer = left_side_bar_loader_on_footer
+        self.left_side_bar_loader_reverse = left_side_bar_loader_reverse
+
+        # ========= Right side bar loader =========
+
+        self.right_side_bar_loader_is_case = right_side_bar_loader_is_case
+
+        self.right_side_bar_loader_color = right_side_bar_loader_color
+        self.right_side_bar_loader_style = right_side_bar_loader_style
+        self.right_side_bar_loader_bg = right_side_bar_loader_bg
+
+        self.right_side_bar_loader_empty_color = right_side_bar_loader_empty_color
+        self.right_side_bar_loader_empty_style = right_side_bar_loader_empty_style
+        self.right_side_bar_loader_empty_bg = right_side_bar_loader_empty_bg
+
+        self.right_side_bar_loader_char = verifyStr(right_side_bar_loader_char, 1, "right_side_bar_loader_char")
+        self.right_side_bar_loader_empty_char = verifyStr(right_side_bar_loader_empty_char, 1, "right_side_bar_loader_empty_char")
+
+        self.right_side_bar_loader_thickness = verifyThickness(right_side_bar_loader_thickness)
+
+        self.right_side_bar_loader_on_title = right_side_bar_loader_on_title
+        self.right_side_bar_loader_on_footer = right_side_bar_loader_on_footer
+        self.right_side_bar_loader_reverse = right_side_bar_loader_reverse
+
+        # ========= Loading bar =========
+        max_length = self.length - (2 if self.is_case else 0) - (body_padding * 2)
+        if loading_bar_length < 10 or loading_bar_length > max_length:
+            self.loading_bar_length = max_length - 2
+        else:
+            self.loading_bar_length = loading_bar_length
+
+        print(self.loading_bar_length)
 
         self.loading_bar_color = loading_bar_color
         self.loading_bar_style = loading_bar_style
@@ -186,30 +294,30 @@ class MCPrettyLoader:
         self.loading_empty_style = loading_empty_style
         self.loading_empty_bg = loading_empty_bg
 
-        if len(loading_char) != 1:
-            raise ValueError("'loading_char' must be of length 1.")
-        self.loading_char = loading_char
+        self.loading_char = verifyStr(loading_char, 1, "loading_char")
+        self.loading_empty_char = verifyStr(loading_empty_char, 1, "loading_empty_char")
 
-        if len(loading_empty_char) != 1:
-            raise ValueError("'loading_empty_char' must be of length 1.")
-        self.loading_empty_char = loading_empty_char
-
-        if len(loading_bar_char) != 2:
-            raise ValueError("'loading_bar_char' must be of length 2.")
+        loading_bar_char = verifyStr(loading_bar_char, 2, "loading_bar_char")
         self.opening_loading_bar_char = loading_bar_char[0]
         self.closing_loading_bar_char = loading_bar_char[1]
 
-        self.margin = margin
+        self.loading_thickness = verifyThickness(loading_thickness)
+
+        self.loading_reverse = loading_reverse
+
+        # ========= Title =========
 
         self.title_space = title_space
-        
         self.title = title
-        self.subtitle = subtitle
         self.title_color = title_color
         self.title_style = title_style
         self.title_bg = title_bg
 
         self.subtitle = subtitle
+
+        # ========= Printing_state =========
+        self.is_already_printing = False
+        # ========= END =========
 
     def set_new_subtitle(self, subtitle=""):
         """
@@ -315,8 +423,8 @@ class MCPrettyLoader:
         """
         color_length = self.calculate_color_length(text)
         real_length = len(text) - color_length
-        
-        max_length = self.length - (2 if self.is_case else 0)
+        padding = self.body_padding * 2
+        max_length = self.length - (2 if self.is_case else 0) - padding
         if real_length <= max_length:
             return [text]
         
@@ -358,183 +466,523 @@ class MCPrettyLoader:
 
         return splited_text
     
-    def print_line(self, text="", full_case=False):
-        """
-        Prints a line of text with optional casing. If the text is too long, it will be split smartly into multiple lines.
-
-        Args:
-            text (str): The text to be printed.
-            full_case (bool, optional): Whether to print the line with full casing. Defaults to False.
-        """
-        margin_spaces = " " * self.margin
-        if full_case:
-            print(margin_spaces + self.color_text(self.case_color, self.case_char * self.length, self.case_bg, self.case_style))
-        else:
-            splited_text = self.split_if_too_long(text)
-            for text in splited_text:
-                text_color_length = self.calculate_color_length(text)
-                if self.is_case:
-                    colored_case = self.color_text(self.case_color, self.case_char, self.case_bg, self.case_style)
-                    print(f"{margin_spaces}{colored_case}{text.center(self.length - 2 + text_color_length, ' ')}{colored_case}")
-                else:
-                    print(margin_spaces + text.center(self.length + text_color_length, ' '))
-
-    def print_lines(self, lines=[]):
-        """
-        Prints each line in the given list of lines.
-
-        Args:
-            lines (list): A list of strings representing the lines to be printed.
-        """
-        for line in lines:
-            self.print_line(line)
-
-    def print_loader(self, load_current=-1, load_end=-1, is_footer=False, space_before=False, space_after=False):
-        """
-        Prints a loader bar based on the current load and end load.
-
-        Args:
-            load_current (int): The current load value. Default is -1.
-            load_end (int): The end load value. Default is -1.
-            is_footer (bool): Indicates if the loader is a footer. Default is False.
-            space_before (bool): Indicates if a blank line should be printed before the loader. Default is False.
-            space_after (bool): Indicates if a blank line should be printed after the loader. Default is False.
-
-        Raises:
-            ValueError: If the current load is greater than the end load.
-
-        Returns:
-            None
-        """
-        if load_current < 0 or load_end < 0:
-            return
-        if load_current > load_end:
-            raise ValueError("Current load cannot be greater than the end load.")
-        if space_before:
-            self.print_line("")
-        if is_footer:
-            bar_length = self.length - 2
-        else:
-            bar_length = self.loading_bar_length
-
-        filled_length = int(bar_length * load_current // load_end)
-        empty_length = bar_length - filled_length
-        
-        full_bar=""
-        if is_footer:
-            filled_bar = self.color_text(self.case_loading_color, self.loading_char * filled_length, self.case_loading_bg, self.case_loading_style)
-            empty_bar = self.color_text(self.case_empty_color, self.loading_empty_char * empty_length, self.case_empty_bg, self.case_empty_style)
-            full_bar = f"{filled_bar}{empty_bar}"
-        else:
-            filled_bar = self.color_text(self.loading_color, self.loading_char * filled_length, self.loading_bg, self.loading_style)
-            empty_bar = self.color_text(self.loading_empty_color, self.loading_empty_char * empty_length, self.loading_empty_bg, self.loading_empty_style)
-            open_bar = self.color_text(self.loading_bar_color, self.opening_loading_bar_char, self.loading_bar_bg, self.loading_bar_style)
-            close_bar = self.color_text(self.loading_bar_color, self.closing_loading_bar_char, self.loading_bar_bg, self.loading_bar_style)
-            full_bar = f"{open_bar}{filled_bar}{empty_bar}{close_bar}"
-        self.print_line(full_bar)
-
-        if space_after:
-            self.print_line("")
-
-    def print_title(self, space_after=False):
-        """
-        Prints the title and subtitle with proper formatting.
-
-        This method prints the title and subtitle using the specified formatting options. It first prints an empty line with full case formatting, then checks if there should be a space before the title. If so, it prints an empty line. Next, it prints the title using the specified color, background color, and style. If a subtitle is provided, it is printed as well. After that, if there should be a space after the title, it prints an empty line. Finally, it prints an empty line with full case formatting and an additional empty line.
-        """
-        if self.margin > 0:
-            print("\n" * self.margin, end="")
-        self.print_line("", full_case=True)
+    def format_title(self, obj={}):
+        content = []
         if self.title_space:
-            self.print_line("")
-        if self.title != "":
-            self.print_line(self.color_text(self.title_color, self.title, self.title_bg, self.title_style))
+            content.append({})
+        colored_title = self.color_text(
+            self.title_color,
+            self.title,
+            self.title_bg,
+            self.title_style
+        )
+        splited_title = self.split_if_too_long(colored_title)
+        for st in splited_title:
+            content.append({
+                "text": st,
+            })
+        if 'subtitle_text' in obj:
+            self.set_new_subtitle(obj['subtitle_text'])
         if self.subtitle != "":
-            self.print_line(self.subtitle)
+            splited_subtitle = self.split_if_too_long(self.subtitle)
+            for st in splited_subtitle:
+                content.append({
+                    "text": st,
+                })
         if self.title_space:
-            self.print_line("")
-        self.print_line("", full_case=True)
-        if space_after:
-            self.print_line("")
+            content.append({})
+        return content
 
-    def print_footer(self, load_current=-1, load_end=-1, space_before=False):
-        """
-        Prints the footer section of the loader printer.
+    def format_footer(self, obj={}):
+        content = []
+        if not 'footer_loader' in obj:
+            return content
+        if not 'load_cur' in obj['footer_loader'] or not 'load_max' in obj['footer_loader']:
+            raise ValueError("Missing 'load_cur' or 'load_max' in 'loading_bar'.")
+        
+        bar_length = self.length - 2
+        load_cur = obj['footer_loader']['load_cur']
+        load_max = obj['footer_loader']['load_max']
+        filled_length = int(bar_length * load_cur // load_max)
+        colored_filled = self.color_text(
+            self.footer_loading_color,
+            self.footer_loading_char * filled_length,
+            self.footer_loading_bg,
+            self.footer_loading_style
+        )
+        empty_length = bar_length - filled_length
+        colored_empty = self.color_text(
+            self.footer_loading_empty_color,
+            self.footer_loading_empty_char * empty_length,
+            self.footer_loading_empty_bg,
+            self.footer_loading_empty_style
+        )
+        if self.footer_loading_reverse:
+            text = f"{colored_empty}{colored_filled}"
+        else:
+            text = f"{colored_filled}{colored_empty}"
+        for _ in range(self.footer_loading_thickness):
+            content.append({
+                "text": text
+            })
+        return content
 
-        Args:
-            load_current (int): The current load value. Defaults to -1.
-            load_end (int): The end load value. Defaults to -1.
-            space_before (bool): Indicates if a blank line should be printed before the footer. Defaults to False.
+    def format_loading_bar(self, loading_bar={}):
+        # --- Error handling ---
+        if not type(loading_bar) is dict:
+            raise ValueError("'loading_bar' must be a dict.")
+        if not 'load_cur' in loading_bar or not 'load_max' in loading_bar:
+            raise ValueError("Missing 'load_cur' or 'load_max' in 'loading_bar'.")
+        # --- Formatting ---
+        load_cur = loading_bar['load_cur']
+        load_max = loading_bar['load_max']
+        filled_length = int(self.loading_bar_length * load_cur // load_max)
+        colored_filled = self.color_text(
+            self.loading_color,
+            self.loading_char * filled_length,
+            self.loading_bg,
+            self.loading_style
+        )
+        empty_length = self.loading_bar_length - filled_length
+        colored_empty = self.color_text(
+            self.loading_empty_color,
+            self.loading_empty_char * empty_length,
+            self.loading_empty_bg,
+            self.loading_empty_style
+        )
+        colored_opening = self.color_text(
+            self.loading_bar_color,
+            self.opening_loading_bar_char,
+            self.loading_bar_bg,
+            self.loading_bar_style
+        )
+        colored_closing = self.color_text(
+            self.loading_bar_color,
+            self.closing_loading_bar_char,
+            self.loading_bar_bg,
+            self.loading_bar_style
+        )
+        # --- Return ---
+        if self.loading_reverse:
+            text = f"{colored_opening}{colored_empty}{colored_filled}{colored_closing}"
+        else:
+            text = f"{colored_opening}{colored_filled}{colored_empty}{colored_closing}"
+        return text
 
-        Raises:
-            ValueError: If the current load is greater than the end load.
-        """
-        if space_before:
-            self.print_line("")
-        self.print_line("", full_case=True)
-        if load_current < 0 or load_end < 0:
-            print("\n" * 5)
+    def format_body(self, obj={}):
+        content = []
+        if not 'body' in obj:
+            return content
+        
+        # --- Padding ---
+        def padd_content(content, padding):
+            for _ in range(padding):
+                content.append({})
+            return content
+
+        # --- Body ---
+        content = padd_content(content, self.body_padding)
+        for line in obj['body']:
+            if line == {}:
+                content.append({})
+            elif 'text' in line:
+                splited_text = self.split_if_too_long(line['text'])
+                for st in splited_text:
+                    content.append({
+                        "text": st,
+                    })
+            elif 'loader' in line:
+                text = self.format_loading_bar(line['loader'])
+                for _ in range(self.loading_thickness):
+                    content.append({
+                        "text": text
+                    })
+            else:
+                raise ValueError("Invalid body line.")
+        content = padd_content(content, self.body_padding)
+        return content
+
+    def format_left_side_bar_loader(
+            self, obj={}, title_lines=0, footer_lines=0, body_lines=0
+            ):
+        if not 'left_side_loader' in obj:
+            return {}
+        if not 'load_cur' in obj['left_side_loader'] or not 'load_max' in obj['left_side_loader']:
+            raise ValueError("Missing 'load_cur' or 'load_max' in 'left_side_loader'.")
+
+        colored_load_char = self.color_text(
+            self.left_side_bar_loader_color,
+            self.left_side_bar_loader_char * self.left_side_bar_loader_thickness,
+            self.left_side_bar_loader_bg,
+            self.left_side_bar_loader_style
+        )
+        colored_empty_char = self.color_text(
+            self.left_side_bar_loader_empty_color,
+            self.left_side_bar_loader_empty_char * self.left_side_bar_loader_thickness,
+            self.left_side_bar_loader_empty_bg,
+            self.left_side_bar_loader_empty_style
+        )
+
+        if body_lines == 0:
+            return {}
+
+        total_high = body_lines
+        if self.left_side_bar_loader_on_title:
+            total_high += title_lines + 1
+        if self.left_side_bar_loader_on_footer:
+            total_high += footer_lines + 1
+
+        load_cur = obj['left_side_loader']['load_cur']
+        load_max = obj['left_side_loader']['load_max']
+
+        nb_load_lines = int(total_high * load_cur // load_max)
+        nb_empty_lines = total_high - nb_load_lines
+
+        if self.left_side_bar_loader_reverse:
+            return {
+                "load_char": colored_empty_char,
+                "empty_char": colored_load_char,
+                "nb_load_lines": nb_empty_lines,
+                "nb_empty_lines": nb_load_lines
+            }
+
+        return {
+            "load_char": colored_load_char,
+            "empty_char": colored_empty_char,
+            "nb_load_lines": nb_load_lines,
+            "nb_empty_lines": nb_empty_lines
+        }
+    
+    def format_right_side_bar_loader(
+            self, obj={}, title_lines=0, footer_lines=0, body_lines=0
+            ):
+        if not 'right_side_loader' in obj:
+            return {}
+        if not 'load_cur' in obj['right_side_loader'] or not 'load_max' in obj['right_side_loader']:
+            raise ValueError("Missing 'load_cur' or 'load_max' in 'right_side_loader'.")
+
+        colored_load_char = self.color_text(
+            self.right_side_bar_loader_color,
+            self.right_side_bar_loader_char * self.right_side_bar_loader_thickness,
+            self.right_side_bar_loader_bg,
+            self.right_side_bar_loader_style
+        )
+        colored_empty_char = self.color_text(
+            self.right_side_bar_loader_empty_color,
+            self.right_side_bar_loader_empty_char * self.right_side_bar_loader_thickness,
+            self.right_side_bar_loader_empty_bg,
+            self.right_side_bar_loader_empty_style
+        )
+
+        if body_lines == 0:
+            return {}
+
+        total_high = body_lines
+        if self.right_side_bar_loader_on_title:
+            total_high += title_lines + 1
+        if self.right_side_bar_loader_on_footer:
+            total_high += footer_lines + 1
+
+        load_cur = obj['right_side_loader']['load_cur']
+        load_max = obj['right_side_loader']['load_max']
+
+        nb_load_lines = int(total_high * load_cur // load_max)
+        nb_empty_lines = total_high - nb_load_lines
+
+        if self.right_side_bar_loader_reverse:
+            return {
+                "load_char": colored_empty_char,
+                "empty_char": colored_load_char,
+                "nb_load_lines": nb_empty_lines,
+                "nb_empty_lines": nb_load_lines
+            }
+
+        return {
+            "load_char": colored_load_char,
+            "empty_char": colored_empty_char,
+            "nb_load_lines": nb_load_lines,
+            "nb_empty_lines": nb_empty_lines
+        }
+        
+    def from_obj_to_formatted(self, obj):
+        formatted_obj = {
+            "title": {},
+            "body": {},
+            "footer": {},
+            "left_side_bar_loader": {},
+            "right_side_bar_loader": {}
+        }
+
+        # --- Title ---
+        formatted_obj['title']['content'] = self.format_title(obj)
+        formatted_obj['title']['nb_lines'] = len(formatted_obj['title']['content'])
+
+        # --- Body ---
+        formatted_obj['body']['content'] = self.format_body(obj)
+        formatted_obj['body']['nb_lines'] = len(formatted_obj['body']['content'])
+
+        # --- Footer ---
+        formatted_obj['footer']['content'] = self.format_footer(obj)
+        formatted_obj['footer']['nb_lines'] = len(formatted_obj['footer']['content'])
+
+        # --- Left side bar loader ---
+        formatted_obj['left_side_bar_loader'] = self.format_left_side_bar_loader(
+            obj=obj,
+            title_lines=formatted_obj['title']['nb_lines'],
+            footer_lines=formatted_obj['footer']['nb_lines'],
+            body_lines=formatted_obj['body']['nb_lines']
+        )
+        
+        # --- Right side bar loader ---
+        formatted_obj['right_side_bar_loader'] = self.format_right_side_bar_loader(
+            obj=obj,
+            title_lines=formatted_obj['title']['nb_lines'],
+            footer_lines=formatted_obj['footer']['nb_lines'],
+            body_lines=formatted_obj['body']['nb_lines']
+        )
+
+        return formatted_obj
+    
+    def print_text(self, text, left_cased=False, right_cased=False, end=""):
+        text_color_length = self.calculate_color_length(text)
+        padding = self.body_padding * 2
+        max_length = self.length - padding
+        padding = " " * self.body_padding
+        case_color = self.color_text(
+            self.case_color,
+            self.case_char,
+            self.case_bg,
+            self.case_style
+        )
+        left, right = "", ""
+        if left_cased:
+            left = case_color
+            max_length -= 1
+        if right_cased:
+            right = case_color
+            max_length -= 1
+        centered_text = f"{text.center(max_length + text_color_length)}"
+        print(f"{left}{padding}{centered_text}{padding}{right}", end=end)
+
+
+    def print_margin(self, side=False, end=""):
+        if side:
+            print(" "*self.margin, end=end)
             return
-        if load_current > load_end:
-            raise ValueError("Current load cannot be greater than the end load.")
-        self.print_loader(load_current, load_end, is_footer=True)
-        self.print_line("", full_case=True)
+        for _ in range(self.margin):
+            print()
 
-    def print_format(self, format={}, clear=True):
-        """
-        Prints the formatted output based on the given format dictionary.
-
-        Args:
-            format (dict): The format dictionary containing the structure of the output.
-            clear (bool): Whether to clear the console before printing the output.
-
-        Raises:
-            ValueError: If the format dictionary is not valid.
-
-        Returns:
-            None
-        """
-        if clear:
-            self.clear_console()
-        
-        if "subtitle" in format:
-            if not isinstance(format["subtitle"], str):
-                raise ValueError("Subtitle must be a string.")
-            self.set_new_subtitle(format["subtitle"])
-        
-        title_space = format["title_space"] if "title_space" in format else False
-        self.print_title(space_after=title_space)
-
-        if "body" in format:
-            if not isinstance(format["body"], list):
-                raise ValueError("Body must be a list.")
-            for line in format["body"]:
-                if "text" in line:
-                    self.print_line(line["text"])
-                elif "loader" in line:
-                    space_before = line["loader"]["space_before"] if "space_before" in line["loader"] else False
-                    space_after = line["loader"]["space_after"] if "space_after" in line["loader"] else False
-                    self.print_loader(
-                        load_current=line["loader"]["load_current"],
-                        load_end=line["loader"]["load_end"],
-                        space_before=space_before,
-                        space_after=space_after
-                    )
-                else:
-                    self.print_line("")
-
-        if "footer" in format:
-            if not "load_current" in format["footer"] or not "load_end" in format["footer"]:
-                raise ValueError("Missing mandatory fields in footer.")
-            space_before = format["footer_space"] if "footer_space" in format else False
-            self.print_footer(
-                load_current=format["footer"]["load_current"],
-                load_end=format["footer"]["load_end"],
-                space_before=space_before
+    def print_left_side_bar_loader(self, obj, part=""):
+        if obj['left_side_bar_loader'] == {}:
+            return
+        if part not in ["full", "space", "load_empty"]:
+            raise ValueError("Invalid part for the left side bar loader, should be 'full', 'space' or 'load_empty'.")
+        if part == "space":
+            print(" " * (self.left_side_bar_loader_thickness + 1), end="")
+            return
+        if part == "full":
+            colored_cases = self.color_text(
+                self.case_color,
+                self.case_char * (self.left_side_bar_loader_thickness + 1),
+                self.case_bg,
+                self.case_style
             )
-        elif self.is_case and "body" in format and len(format["body"]) > 0:
-            space_before = format["footer_space"] if "footer_space" in format else False
-            self.print_footer(space_before=space_before)
+            print(colored_cases, end="")
+            return
+        loader = obj['left_side_bar_loader']
+        colored_case = self.color_text(
+            self.case_color,
+            self.case_char,
+            self.case_bg,
+            self.case_style
+        )
+        print(f"{colored_case}{loader['load_char'] if loader['nb_load_lines'] > 0 else loader['empty_char']}", end="")
+        loader['nb_load_lines'] -= 1
+
+    def print_right_side_bar_loader(self, obj, part=""):
+        if obj['right_side_bar_loader'] == {}:
+            return
+        if part not in ["full", "space", "load_empty"]:
+            raise ValueError("Invalid part for the right side bar loader, should be 'full', 'space' or 'load_empty'.")
+        if part == "space":
+            print(" " * (self.right_side_bar_loader_thickness + 1), end="")
+            return
+        if part == "full":
+            colored_cases = self.color_text(
+                self.case_color,
+                self.case_char * (self.right_side_bar_loader_thickness + 1),
+                self.case_bg,
+                self.case_style
+            )
+            print(colored_cases, end="")
+            return
+        loader = obj['right_side_bar_loader']
+        colored_case = self.color_text(
+            self.case_color,
+            self.case_char,
+            self.case_bg,
+            self.case_style
+        )
+        print(f"{loader['load_char'] if loader['nb_load_lines'] > 0 else loader['empty_char']}{colored_case}", end="")
+        loader['nb_load_lines'] -= 1
+
+    def print_title(self, obj):
+        title = obj['title']
+        # --- Create the full line separator ---
+        full_line = self.color_text(
+            self.case_color,
+            self.case_char * self.length,
+            self.case_bg,
+            self.case_style
+        )
+
+        # --- Left and Right cased ---
+        isLeftCased = self.is_case or (obj['left_side_bar_loader'] != {} and self.left_side_bar_loader_on_title)
+        isRightCased = self.is_case or (obj['right_side_bar_loader'] != {} and self.right_side_bar_loader_on_title)
+        # --- Print the full bar ---
+        self.print_margin(side=True)
+        left_part = "full" if self.left_side_bar_loader_on_title else "space"
+        self.print_left_side_bar_loader(obj, part=left_part)
+        print(full_line, end="")
+        right_part = "full" if self.right_side_bar_loader_on_title else "space"
+        self.print_right_side_bar_loader(obj, part=right_part)
+        self.print_margin(side=True, end="\n")
+
+        # --- Print the title ---
+        if left_part == "full":
+            left_part = "load_empty"
+        if right_part == "full":
+            right_part = "load_empty"
+
+        for line in title['content']:
+            if line == {}:
+                self.print_margin(side=True)
+                self.print_left_side_bar_loader(obj, part=left_part)
+                self.print_text("", end="", left_cased=isLeftCased, right_cased=isRightCased)
+                self.print_right_side_bar_loader(obj, part=right_part)
+            elif 'text' in line:
+                self.print_margin(side=True)
+                self.print_left_side_bar_loader(obj, part=left_part)
+                self.print_text(line['text'], end="", left_cased=isLeftCased, right_cased=isRightCased)
+                self.print_right_side_bar_loader(obj, part=right_part)
+            else:
+                raise ValueError("Invalid title line.")
+            self.print_margin(side=True, end="\n")
         
-        if self.margin > 0:
-            print("\n" * self.margin, end="")
+        # --- Print the full bar ---
+        if left_part == "space":
+            left_part = "full"
+        if right_part == "space":
+            right_part = "full"
+        self.print_margin(side=True)
+        self.print_left_side_bar_loader(obj, part=left_part)
+        print(full_line, end="")
+        self.print_right_side_bar_loader(obj, part=right_part)
+        self.print_margin(side=True, end="\n")
+
+    def print_body(self, obj):
+        if not 'body' in obj:
+            return
+        body = obj['body']
+
+        isLeftCased = self.is_case or (obj['left_side_bar_loader'] != {})
+        isRightCased = self.is_case or (obj['right_side_bar_loader'] != {})
+        
+        for content in body['content']:
+            if content == {}:
+                text = ""
+            else:
+                text = content['text']
+            self.print_margin(side=True)
+            self.print_left_side_bar_loader(obj, part="load_empty")
+            self.print_text(text, end="", left_cased=isLeftCased, right_cased=isRightCased)
+            self.print_right_side_bar_loader(obj, part="load_empty")
+            self.print_margin(side=True, end="\n")
+
+    def print_footer(self, obj):
+        if not 'footer' in obj:
+            return
+        footer = obj['footer']
+
+        # --- Create the full line separator ---
+        full_line = self.color_text(
+            self.case_color,
+            self.case_char * self.length,
+            self.case_bg,
+            self.case_style
+        )
+
+        # --- Print the full bar ---
+        self.print_margin(side=True)
+        left_part = "full" if not self.left_side_bar_loader_on_footer else "load_empty"
+        self.print_left_side_bar_loader(obj, part=left_part)
+        if self.is_case or footer['nb_lines'] != 0:
+            print(full_line, end="")
+        else:
+            print(" " * (self.length - (2 if self.is_case else 0)), end="")
+        right_part = "full" if not self.right_side_bar_loader_on_footer else "load_empty"
+        self.print_right_side_bar_loader(obj, part=right_part)
+        self.print_margin(side=True, end="\n")
+
+        # --- Print the footer ---
+        if left_part == "full":
+            left_part = "space"
+        if right_part == "full":
+            right_part = "space"
+        if footer['nb_lines'] == 0:
+            return
+        case_char = self.color_text(
+            self.case_color,
+            self.case_char,
+            self.case_bg,
+            self.case_style
+        )
+        for content in footer['content']:
+            if content == {}:
+                text = ""
+            else:
+                text = content['text']
+            self.print_margin(side=True)
+            self.print_left_side_bar_loader(obj, part=left_part)
+            # print(len(text) - self.calculate_color_length(text))
+            print(f"{case_char}{text}{case_char}", end="")
+            self.print_right_side_bar_loader(obj, part=right_part)
+            self.print_margin(side=True, end="\n")
+
+        # --- Print the full bar ---
+        if left_part == "load_empty":
+            left_part = "full"
+        if right_part == "load_empty":
+            right_part = "full"
+        self.print_margin(side=True)
+        self.print_left_side_bar_loader(obj, part=left_part)
+        print(full_line, end="")
+        self.print_right_side_bar_loader(obj, part=right_part)
+        self.print_margin(side=True, end="\n")
+
+
+    def display_obj(self, obj={}, clear_console=True):
+        if not type(obj) is dict:
+            raise ValueError("'obj' must be a dict.")
+        
+        if self.is_already_printing:
+            return
+        self.is_already_printing = True
+        if clear_console:
+            self.clear_console()
+
+        formatted_obj = self.from_obj_to_formatted(obj)
+        
+        # --- Up Margin ---
+        self.print_margin()
+
+        # --- Title ---
+        self.print_title(formatted_obj)
+        # --- Body ---
+        self.print_body(formatted_obj)
+        # --- Footer ---
+        self.print_footer(formatted_obj)
+        # --- Down Margin ---
+        self.print_margin()
+
+        self.is_already_printing = False
