@@ -1,0 +1,28 @@
+{
+    "subtitle_text": "This is the special subtitle",
+    "footer_loader": {
+        "load_cur": 7,
+        "load_max": 100
+    },
+    "body": [
+        {},
+        {
+            "text": "This a text"
+        },
+        {
+            "loader": {
+                "load_cur": 42,
+                "load_max": 100
+            }
+        },
+        {}
+    ],
+    "left_side_loader": {
+        "load_cur": 34,
+        "load_max": 100
+    },
+    "right_side_loader": {
+        "load_cur": 13,
+        "load_max": 100
+    }
+}
