@@ -166,7 +166,82 @@ class MCPrettyLoader:
                 title_space=False,
                 title_style=[style.BOLD, style.UNDERLINE]
                 ):
+        """
+        Initialize the mc_pretty_loader object with the specified parameters.
 
+        Args:
+            body_padding (int, optional): The padding around the body content. Defaults to 0.
+            case_bg (str, optional): The background color of the case. Defaults to "".
+            case_char (str, optional): The character used for the case. Defaults to "*".
+            case_color (str, optional): The color of the case. Defaults to fg.LIGHTBLUE.
+            case_style (list, optional): The style of the case. Defaults to [].
+            case_empty_bg (str, optional): The background color of the empty case. Defaults to "".
+            case_empty_color (str, optional): The color of the empty case. Defaults to fg.YELLOW.
+            case_empty_style (list, optional): The style of the empty case. Defaults to [].
+            case_loading_bg (str, optional): The background color of the loading case. Defaults to "".
+            case_loading_color (str, optional): The color of the loading case. Defaults to fg.LIGHTBLUE.
+            case_loading_style (list, optional): The style of the loading case. Defaults to [].
+            footer_loading_bg (str, optional): The background color of the footer loading bar. Defaults to "".
+            footer_loading_char (str, optional): The character used for the footer loading bar. Defaults to "#".
+            footer_loading_color (str, optional): The color of the footer loading bar. Defaults to fg.BLUE.
+            footer_loading_style (list, optional): The style of the footer loading bar. Defaults to [].
+            footer_loading_empty_bg (str, optional): The background color of the empty footer loading bar. Defaults to "".
+            footer_loading_empty_char (str, optional): The character used for the empty footer loading bar. Defaults to "-".
+            footer_loading_empty_color (str, optional): The color of the empty footer loading bar. Defaults to fg.YELLOW.
+            footer_loading_empty_style (list, optional): The style of the empty footer loading bar. Defaults to [].
+            footer_loading_reverse (bool, optional): Whether to reverse the footer loading bar. Defaults to False.
+            footer_loading_thickness (int, optional): The thickness of the footer loading bar. Defaults to 1.
+            is_case (bool, optional): Whether to display the case. Defaults to True.
+            left_side_bar_loader_bg (str, optional): The background color of the left side bar loader. Defaults to "".
+            left_side_bar_loader_char (str, optional): The character used for the left side bar loader. Defaults to "V".
+            left_side_bar_loader_color (str, optional): The color of the left side bar loader. Defaults to fg.GREEN.
+            left_side_bar_loader_style (list, optional): The style of the left side bar loader. Defaults to [].
+            left_side_bar_loader_empty_bg (str, optional): The background color of the empty left side bar loader. Defaults to "".
+            left_side_bar_loader_empty_char (str, optional): The character used for the empty left side bar loader. Defaults to "v".
+            left_side_bar_loader_empty_color (str, optional): The color of the empty left side bar loader. Defaults to fg.RED.
+            left_side_bar_loader_empty_style (list, optional): The style of the empty left side bar loader. Defaults to [].
+            left_side_bar_loader_is_case (bool, optional): Whether to display the left side bar loader as a case. Defaults to True.
+            left_side_bar_loader_on_title (bool, optional): Whether to display the left side bar loader on the title. Defaults to False.
+            left_side_bar_loader_on_footer (bool, optional): Whether to display the left side bar loader on the footer. Defaults to False.
+            left_side_bar_loader_reverse (bool, optional): Whether to reverse the left side bar loader. Defaults to False.
+            left_side_bar_loader_thickness (int, optional): The thickness of the left side bar loader. Defaults to 1.
+            length (int, optional): The total length of the progress bar. Defaults to 100.
+            loading_bar_bg (str, optional): The background color of the loading bar. Defaults to "".
+            loading_bar_char (str, optional): The characters used for the loading bar. Defaults to "[]".
+            loading_bar_color (str, optional): The color of the loading bar. Defaults to fg.LIGHTGRAY.
+            loading_bar_length (int, optional): The length of the loading bar. Defaults to 0.
+            loading_bar_style (list, optional): The style of the loading bar. Defaults to [].
+            loading_bg (str, optional): The background color of the loading animation. Defaults to "".
+            loading_empty_bg (str, optional): The background color of the empty loading animation. Defaults to "".
+            loading_empty_char (str, optional): The character used for the empty loading animation. Defaults to "-".
+            loading_empty_color (str, optional): The color of the empty loading animation. Defaults to fg.LIGHTRED.
+            loading_empty_style (list, optional): The style of the empty loading animation. Defaults to [].
+            loading_char (str, optional): The character used for the loading animation. Defaults to "#".
+            loading_color (str, optional): The color of the loading animation. Defaults to fg.LIGHTGREEN.
+            loading_reverse (bool, optional): Whether to reverse the loading animation. Defaults to False.
+            loading_style (list, optional): The style of the loading animation. Defaults to [].
+            loading_thickness (int, optional): The thickness of the loading animation. Defaults to 1.
+            margin (int, optional): The margin around the progress bar. Defaults to 0.
+            right_side_bar_loader_bg (str, optional): The background color of the right side bar loader. Defaults to "".
+            right_side_bar_loader_char (str, optional): The character used for the right side bar loader. Defaults to "V".
+            right_side_bar_loader_color (str, optional): The color of the right side bar loader. Defaults to fg.GREEN.
+            right_side_bar_loader_style (list, optional): The style of the right side bar loader. Defaults to [].
+            right_side_bar_loader_empty_bg (str, optional): The background color of the empty right side bar loader. Defaults to "".
+            right_side_bar_loader_empty_char (str, optional): The character used for the empty right side bar loader. Defaults to "v".
+            right_side_bar_loader_empty_color (str, optional): The color of the empty right side bar loader. Defaults to fg.RED.
+            right_side_bar_loader_empty_style (list, optional): The style of the empty right side bar loader. Defaults to [].
+            right_side_bar_loader_is_case (bool, optional): Whether to display the right side bar loader as a case. Defaults to True.
+            right_side_bar_loader_on_title (bool, optional): Whether to display the right side bar loader on the title. Defaults to False.
+            right_side_bar_loader_on_footer (bool, optional): Whether to display the right side bar loader on the footer. Defaults to False.
+            right_side_bar_loader_reverse (bool, optional): Whether to reverse the right side bar loader. Defaults to False.
+            right_side_bar_loader_thickness (int, optional): The thickness of the right side bar loader. Defaults to 1.
+            subtitle (str, optional): The subtitle of the progress bar. Defaults to "".
+            title (str, optional): The title of the progress bar. Defaults to "Program".
+            title_bg (str, optional): The background color of the title. Defaults to "".
+            title_color (str, optional): The color of the title. Defaults to fg.ORANGE.
+            title_space (bool, optional): Whether to add a space between the title and the progress bar. Defaults to False.
+            title_style (list, optional): The style of the title. Defaults to [style.BOLD, style.UNDERLINE].
+        """
         # ========= Error handling =========
 
         def verifyBtw(value, min, max, name):
@@ -913,7 +988,7 @@ class MCPrettyLoader:
         # --- Print the full bar ---
         left_part = "full" if not self.left_side_bar_loader_on_footer else "load_empty"
         right_part = "full" if not self.right_side_bar_loader_on_footer else "load_empty"
-        if self.is_case or footer['nb_lines'] == 0:
+        if self.is_case and footer['nb_lines'] == 0:
             left_part, right_part = "full", "full"
         self.print_margin(side=True)
         self.print_left_side_bar_loader(obj, part=left_part)
@@ -962,6 +1037,16 @@ class MCPrettyLoader:
 
 
     def display_obj(self, obj={}, clear_console=True):
+        """
+        Display the object that will be formatted in the console.
+
+        Args:
+            obj (dict): The object to be displayed. Must be a dictionary.
+            clear_console (bool): Whether to clear the console before displaying the object.
+
+        Raises:
+            ValueError: If the 'obj' parameter is not a dictionary.
+        """
         if not type(obj) is dict:
             raise ValueError("'obj' must be a dict.")
         
