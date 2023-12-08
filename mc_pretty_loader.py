@@ -175,8 +175,8 @@ class MCPrettyLoader:
             return value
 
         def verifyThickness(thickness):
-            if thickness < 1 or thickness > 5:
-                raise ValueError("Thickness must be between 1 and 5.")
+            if thickness < 1 or thickness > 10:
+                raise ValueError("Thickness must be between 1 and 10.")
             return thickness
     
         def verifyStr(string, supposed_len, name):
@@ -279,8 +279,6 @@ class MCPrettyLoader:
             self.loading_bar_length = max_length - 2
         else:
             self.loading_bar_length = loading_bar_length
-
-        print(self.loading_bar_length)
 
         self.loading_bar_color = loading_bar_color
         self.loading_bar_style = loading_bar_style
@@ -913,14 +911,16 @@ class MCPrettyLoader:
         )
 
         # --- Print the full bar ---
-        self.print_margin(side=True)
         left_part = "full" if not self.left_side_bar_loader_on_footer else "load_empty"
+        right_part = "full" if not self.right_side_bar_loader_on_footer else "load_empty"
+        if self.is_case or footer['nb_lines'] == 0:
+            left_part, right_part = "full", "full"
+        self.print_margin(side=True)
         self.print_left_side_bar_loader(obj, part=left_part)
         if self.is_case or footer['nb_lines'] != 0:
             print(full_line, end="")
         else:
-            print(" " * (self.length - (2 if self.is_case else 0)), end="")
-        right_part = "full" if not self.right_side_bar_loader_on_footer else "load_empty"
+            print(" " * self.length, end="")
         self.print_right_side_bar_loader(obj, part=right_part)
         self.print_margin(side=True, end="\n")
 
