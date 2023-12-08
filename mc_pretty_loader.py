@@ -840,7 +840,7 @@ class MCPrettyLoader:
 
     def print_margin(self, side=False, end=""):
         if side:
-            print(" "*self.margin, end=end)
+            print(" "*self.margin*2, end=end)
             return
         for _ in range(self.margin):
             print()
